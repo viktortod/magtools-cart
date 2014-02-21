@@ -1,6 +1,5 @@
 <?php
     require_once '../include/magtools/init.php';
-
     jsUserAuth::checkUserAuth();
 
     class IndexPage extends PageAdministration{

@@ -140,7 +140,6 @@ class Controller {
         
         $templateParser->setTempalateVariables($this->templateSet);
         $templateParser->parseTemplate();
-        
         $templateParser->showTemplate();
     }
 

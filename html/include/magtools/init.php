@@ -6,17 +6,17 @@ define("MAIN_PATH", dirname(INCLUDE_PATH));
 define('SKINS_PATH', 'skin/');
 
 
-require_once MAIN_PATH.'/include/magtools/core/loader.php';
+require_once MAIN_PATH.'/include/magtools/core/Loader.php';
 require_once MAIN_PATH.'/include/magtools/core/autoload.php';
 
 $autoloadClasses = array(
     //Controllers
-    'IAction' => '/controller/action.php',
-    'Action' => '/controller/action.php',
-    'osExecInsertAction' => '/controller/action.php',
-    'osExecUpdateAction' => '/controller/action.php',
-    'osExecDeleteAction' => '/controller/action.php',
-    'ClearFiltersAction' => '/controller/action.php',
+    'IAction' => '/controller/Action.php',
+    'Action' => '/controller/Action.php',
+    'osExecInsertAction' => '/controller/Action.php',
+    'osExecUpdateAction' => '/controller/Action.php',
+    'osExecDeleteAction' => '/controller/Action.php',
+    'ClearFiltersAction' => '/controller/Action.php',
     'ActionDispatcher' => '/controller/ActionDispatcher.php',
     'Controller' => '/controller/Controller.php',
     'UIWebTable' => '/controller/UIWebTable.php',

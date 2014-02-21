@@ -17,8 +17,6 @@ class UploadUtil {
                     }
 
                     $fileDestination .= $file_prefix . $file['name'];
-
-
                     if(move_uploaded_file($file['tmp_name'], $fileDestination)){
                         return $fileDestination;
                     }

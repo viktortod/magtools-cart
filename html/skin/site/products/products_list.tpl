@@ -13,8 +13,8 @@
         <div id="pb-right-column">
             <!-- product img-->
             <div id="image-block">
-                <a href="<%SITE_URL%>userfiles/images/<%PRODUCT_LARGE_PATH%><%ProductImageFileName%>" title="<%ProductName%>" class="lightbox">
-                <img src="<%SITE_URL%>userfiles/images/<%PRODUCT_IMAGE_PATH%><%ProductImageFileName%>"
+                <a href="<%SITE_URL%>userfiles/<%PRODUCT_LARGE_PATH%><%ProductImageFileName%>" title="<%ProductName%>" class="lightbox">
+                <img src="<%SITE_URL%>userfiles/<%PRODUCT_IMAGE_PATH%><%ProductImageFileName%>"
                      title="<%ProductName%>" alt="<%ProductName%>"  id="bigpic" width="288" height="288" />
                 </a>
             </div>
@@ -24,8 +24,8 @@
                     <ul id="thumbs_list">
                         <:iteration name="images">
                         <li id="thumbnail_64">
-                             <a href="<%SITE_URL%>userfiles/images/<%PRODUCT_LARGE_PATH%><:ProductImageFileName:>" title="<%ProductName%>" class="lightbox">
-                                <img src="<%SITE_URL%>userfiles/images/<%PRODUCT_THUMB_PATH%><:ProductImageFileName:>" alt="<%ProductName%>" height="88" width="88" />
+                             <a href="<%SITE_URL%>userfiles/<%PRODUCT_LARGE_PATH%><:ProductImageFileName:>" title="<%ProductName%>" class="lightbox">
+                                <img src="<%SITE_URL%>userfiles/<%PRODUCT_THUMB_PATH%><:ProductImageFileName:>" alt="<%ProductName%>" height="88" width="88" />
                             </a>
                         </li>
                         <:enditeration name="images">

@@ -53,7 +53,7 @@
 
             $_FILES = UploadUtil::prepareFilesStack($_FILES);
             $prefix = time();
-            $image = UploadUtil::uploadFile(FileType::FILE_TYPE_IMAGE, $_FILES['CategoryImage'], $prefix, 'categories/big');
+            $image = UploadUtil::uploadFile(FileType::FILE_TYPE_IMAGE, $_FILES['CategoryImage'], $prefix, 'images/categories/big');
 
             $thumbImage = ImageUtil::processThumbnailing($image, $image.'_thumb', array(
                 'width' => 615,
@@ -72,11 +72,11 @@
             $_FILES = UploadUtil::prepareFilesStack($_FILES);
             if($_FILES['CategoryImage']['error'] != 4){
                 $prefix = time();
-                $image = UploadUtil::uploadFile(FileType::FILE_TYPE_IMAGE, $_FILES['CategoryImage'], $prefix, 'categories/big');
+                $image = UploadUtil::uploadFile(FileType::FILE_TYPE_IMAGE, $_FILES['CategoryImage'], $prefix, 'images/categories/big');
                 $thumbImage = ImageUtil::processThumbnailing($image, $image.'_thumb', array(
                     'width' => 615,
                     'height' => 310
-                ), 'categories/thumbs/');
+                ), 'images/categories/thumbs/');
 
                 $this->_dataMapper->setRequestParam('CategoryImage',$thumbImage);
             }

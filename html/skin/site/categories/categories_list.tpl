@@ -12,7 +12,7 @@
                 <:iteration name="products">
                <li class="ajax_block_product  alternate_item clearfix">
                     <a title="<:ProductName:>" class="product_img_link" href="products.php?ProductID=<:ProductID:>">
-                        <img width="195" alt="<:ProductName:>" src="<%SITE_URL%>userfiles/images/<%PRODUCT_IMAGE_PATH%><:ProductImageFileName:>">
+                        <img width="195" alt="<:ProductName:>" src="<%SITE_URL%>userfiles/<%PRODUCT_IMAGE_PATH%><:ProductImageFileName:>">
                     </a>
                     <div class="right_block">
                         <div class="products_states">

@@ -16,7 +16,7 @@
                     
 
                     <a class="product_image" href="products.php?ProductID=<:ProductID:>" title="<:ProductName:>">
-                        <img src="<%SITE_URL%>userfiles/images/<%PRODUCT_IMAGE_PATH%><:ProductImageFileName:>" alt="Very Sexy" />
+                        <img src="<%SITE_URL%>userfiles/<%PRODUCT_IMAGE_PATH%><:ProductImageFileName:>" alt="Very Sexy" />
                     </a>
                     <span style="height: 4px; overflow:hidden"><br /></span>
                     <div class="product_desc" style="height: 30px; position:relative;  overflow: hidden; display: block; padding: 0px; vertical-align: bottom ">

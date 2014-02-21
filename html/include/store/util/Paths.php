@@ -14,11 +14,11 @@ class Paths {
         self::CATEGORIES_IMAGE_PATH => 'categories/big/',
         self::CATEGORIES_THUMBS_IMAGE_PATH => 'categories/thumbs/',
 
-        self::PRODUCTS_IMAGE_PATH => 'products/productimage/',
-        self::PRODUCTS_ORIGINAL_IMAGE_PATH => 'products/original/',
-        self::PRODUCTS_THUMB_IMAGE_PATH => 'products/thumbs/',
-        self::PRODUCTS_THICKBOX_IMAGE_PATH => 'products/thickbox/',
-        self::PRODUCTS_THICKBOX_IMAGE_PATH => 'products/thickbox/',
+        self::PRODUCTS_IMAGE_PATH => 'images/products/productimage/',
+        self::PRODUCTS_ORIGINAL_IMAGE_PATH => 'images/products/original/',
+        self::PRODUCTS_THUMB_IMAGE_PATH => 'images/products/thumbs/',
+        self::PRODUCTS_THICKBOX_IMAGE_PATH => 'images/products/thickbox/',
+        self::PRODUCTS_THICKBOX_IMAGE_PATH => 'images/products/thickbox/',
     );
 
     public static function getPath($path) {

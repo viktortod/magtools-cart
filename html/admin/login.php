@@ -16,6 +16,7 @@ class jsLoginActionAction extends Action{
     }
 }
 
+
 $controller = new Controller(new PageAdministration());
 $controller->getDispatcher()->setActionHandler('login', 'jsLoginAction');
 $template = ADMIN_THEME_DESTINATION.'/login.tpl';
