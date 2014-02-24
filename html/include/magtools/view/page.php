@@ -16,6 +16,8 @@ abstract class PageAbstract{
     protected $_dataFields = array(
         
     );
+    
+    protected $_breadCrumb;
 
     /**
      * Page constructor.
@@ -23,7 +25,7 @@ abstract class PageAbstract{
     public function __construct(){
         $this->_controller = new Controller($this);
         $this->_controller->setPage($this);
-        
+        $this->_breadCrumb = new BreadCrumb();
         $this->createDomainObject();
     }
 
@@ -246,16 +248,17 @@ abstract class PageAbstract{
      * @return null
      */
     public function showPage($paramElementId=0){
+    	$this->initBreadCrumb();
         $this->showHeader();
         try{
         $this->_controller->processValidators($this->getValidators());
         $this->_controller->dispatch();
 
-        $this->getPageTemplate();
+        $pageTemplate = $this->getPageTemplate();
         
         switch($this->templateId){
             case PageTypes::PAGE_TYPE_CUSTOM:{
-                $this->_controller->showTemplate($this->getPageTemplate());
+                $this->_controller->showTemplate($pageTemplate);
                 break;
             }
             case PageTypes::PAGE_TYPE_CHANGE:{
@@ -268,7 +271,7 @@ abstract class PageAbstract{
                     $this->parseWebForm($element);
                 }
                 
-                $this->_controller->showTemplate($this->getPageTemplate());
+                $this->_controller->showTemplate($pageTemplate);
                 break;
             }
             case PageTypes::PAGE_TYPE_LIST:{
@@ -278,7 +281,7 @@ abstract class PageAbstract{
                 $this->_controller->setTemplateVariable('PAGER', $this->_pager->getPagesVariable());
                 $tableContents = $table->parse();
                 $this->_controller->setTemplateVariable('FMT_TABLE_CONTENT', $tableContents);
-                $this->_controller->showTemplate($this->getPageTemplate());
+                $this->_controller->showTemplate($pageTemplate);
                 break;
             }
             case PageTypes::PAGE_TYPE_VIEW:{
@@ -295,7 +298,7 @@ abstract class PageAbstract{
 
 //                echo $this->getPageTemplate();
 
-                $this->_controller->showTemplate($this->getPageTemplate());
+                $this->_controller->showTemplate($pageTemplate);
                 break;
             }
             default:{
@@ -321,6 +324,7 @@ abstract class PageAbstract{
     protected function showHeader(){
         $this->_controller->setTemplateVariable('SKINS_PATH', $this->_templatesDestination);
         $this->_controller->setTemplateVariable('USERNAME', jsUserAuth::getLoggedUserProperty('AdminUsername'));
+       	$this->_controller->setTemplateVariable("HTML_BREADCRUMB", $this->getBreadCrumb());
         $this->_controller->showTemplate(MAIN_PATH . '/skin/admin/header.tpl');
         
     }
@@ -333,6 +337,14 @@ abstract class PageAbstract{
     protected function showFooter(){
         $this->_controller->showTemplate(MAIN_PATH . '/skin/admin/footer.tpl');
     }
+    
+    public function getBreadCrumb(){
+    	return $this->_breadCrumb->parseBreadCrumb();
+    }
+    
+    protected function initBreadCrumb(){
+    	
+    }
 }
 
 /**
@@ -344,7 +356,7 @@ abstract class PageAbstract{
 class PageAdministration extends PageAbstract{
     protected $_templatesDestination = '../skin/admin/';
     protected $_templatesBase = '';
-
+    
     /**
      * creates domain object instance of page
      * @see PageAbstract::createDomainObject()

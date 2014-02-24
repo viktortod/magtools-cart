@@ -29,6 +29,10 @@ class UploadUtil {
                 }
             }
     }
+    
+    public static function isUploadedFile($filename){
+    	return is_uploaded_file($filename);
+    }
 
     public static function getUploadDir() {
         $fileDestination = dirname(dirname(dirname(dirname(__FILE__))));

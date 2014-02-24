@@ -866,7 +866,7 @@ line-height: 150%;
 .no_label, .yes_label, .is_active_0, .is_active_1{
     width: 24px;
     height: 24px;
-    
+    margin: 0 auto;
 }
 
 .yes_label {

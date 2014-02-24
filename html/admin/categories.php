@@ -40,8 +40,16 @@
         
         protected function initWebForm($data = null) {
             parent::initWebForm($data);
-            $categoriesList = new Category('Categories');
-            $list = $categoriesList->getElementsList();
+            $list = $this->_domainObject->getElementsList();
+            
+            try {
+            	$categoryId = getParam('CategoryID');
+            	unset($list[$categoryId]);
+            } catch (Exception $e){
+            	
+            }
+            
+            $this->getWidget('HTML_CategoryImage')->setTextContent("blqblqblq");
             
             $this->getWidget('CategoryParentID')->setOptions(array('0' => '--- Choose ---') + $list);
         }
@@ -51,6 +59,10 @@
         public function  prepare() {
             parent::prepare();
 
+            if(!UploadUtil::isUploadedFile("CategoryImage")){
+            	return null;	
+            }
+            
             $_FILES = UploadUtil::prepareFilesStack($_FILES);
             $prefix = time();
             $image = UploadUtil::uploadFile(FileType::FILE_TYPE_IMAGE, $_FILES['CategoryImage'], $prefix, 'images/categories/big');

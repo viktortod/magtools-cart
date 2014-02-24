@@ -52,6 +52,7 @@ $autoloadClasses = array(
     'jsUserAuth' => '/js/model/UserAuth.php',
     'jsSiteUserAuth' => '/js/model/SiteAuth.php',
     'jsSession' => '/js/model/Session.php',
+    'BreadCrumb' => '/view/BreadCrumb.php',
     //Utils
     'DataMapUtil' => '/util/DataMapUtil.php',
     'StringUtil' => '/util/StringUtil.php',
@@ -61,6 +62,7 @@ $autoloadClasses = array(
     'LogUtil' => '/util/LogUtil.php',
     'UIUtil' => '/util/UIUtil.php',
     'ImageUtil' => '/util/ImageUtil.php',
+    'MessageUtil' => '/util/MessageUtil.php',
     //Vaidators
     'ValidatorFactory' => '/validators/ValidatorFactory.php',
     'NotEmptyValidator' => '/validators/Validator.php',

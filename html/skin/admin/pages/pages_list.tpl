@@ -1,6 +1,19 @@
+<%HTML_MESSAGE%>
 <article class="module width_full">
     <header><h3>Pages <a class="createNewLink" href="?page=create"><input type="button" value="Create new" class="alt_btn" /></a></h3></header>
     <br />
+    <form action="" name="filterForm" method="POST">
+        <fieldset>
+            <table>
+                <tr>
+                    <td style="width: 103px"></td>
+                    <td><%FILTER NAME="PageTitle" CONDITION="=" %></td>
+                    <td><input type="button" name="filter" onclick="document.filterForm.submit()" class="alt_btn" value="Filter" /></td>
+                    <td><input type="button" name="clearFilters" onclick="window.location = '?page=list&action=clearFilters'" class="alt_btn" value="Clear Filters" /></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
     <table class="tablesorter">
         <thead>
             <tr>
@@ -12,13 +25,12 @@
         </thead>
         <tbody>
         <:iteration name="tableRows">
-        
             <tr>
                 <td><:PageID:></td>
                 <td><a href="?page=edit&PageID=<:PageID:>"><:PageTitle:></a></td>
-                <td><:PageIsActive:></td>
+                <td><div class="is_active_<:PageIsActive:>">&nbsp;</div></td>
                 <td>
-                    <a href="?page=&action=doDelete&PageID=<:PageID:>">
+                    <a onclick="return confirm('Are you sure?')" href="?page=&action=doDelete&PageID=<:PageID:>">
                         <img src="<%SKINS_PATH%>images/icn_trash.png" alt="DELETE" title="delete <:PageTitle:>" />
                     </a>
                 </td>
@@ -35,3 +47,8 @@
     </table>
     <div class="spacer"></div>
 </article>
+
+<script>
+$(function(){
+});
+</script>

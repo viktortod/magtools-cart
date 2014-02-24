@@ -20,6 +20,7 @@ class Controller {
         $this->dispatcher = new ActionDispatcher();
         $this->setTemplateVariable('ADMIN_SKIN_PATH', ADMIN_THEME_DESTINATION);
         $this->setTemplateVariable('SITE_SKIN_PATH', SITE_THEME_DESTINATION);
+        $this->setTemplateVariable("HTML_MESSAGE", MessageUtil::getMessage());
         $this->setPage($page);
         $this->setDataMapper(new DataMapUtil($page, $_POST));
     }

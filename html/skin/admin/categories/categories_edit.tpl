@@ -14,7 +14,7 @@
                 <label>Image:</label>
                 <%CATEGORYIMAGE%><br />
                 <br /><br />
-                <img width="300" src="../userfiles/images/categories/<%HTML_CATEGORYIMAGE%>" alt="picture" />
+                <img width="300" src="../userfiles/images/categories/thumbs/<%HTML_CATEGORYIMAGE%>" alt="<%HTML_CATEGORYIMAGE%>" />
             </fieldset>
            <fieldset>
                <label>Active:</label><br />
