@@ -1,5 +1,4 @@
 <?php
-
 class ImageUtil {
     const IMAGEUTIL_RESAMPLE_DESTINATION_X = 0;
     const IMAGEUTIL_RESAMPLE_DESTINATION_Y = 0;

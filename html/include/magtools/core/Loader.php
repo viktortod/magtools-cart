@@ -17,19 +17,21 @@ class Loader {
         
     }
 
-    public function registerClass($class, $destination)
-    {
-        $this->classes[$class] = $destination;
+    public function registerClassPackage($classPackage, $destination){
+    	$this->classes[$classPackage] = $destination;
     }
 
     public function loadClass($class)
     {
-        if(isset($this->classes[$class])){
-            require_once INCLUDE_PATH.'/magtools'.$this->classes[$class];
-        }
-        else{
-            throw new MagtoolsException('__AutoLoading of class '. $class .' fail', MagtoolsException::AUTOLOAD_EXCEPTION);
-        }
+    	foreach($this->classes as $package => $destination){
+    		$filename = INCLUDE_PATH . "/{$destination}/" . $class . ".php";
+    		if(file_exists($filename)){
+    			require_once $filename;
+    			return true;
+    		}
+    	}
+    	
+    	throw new MagtoolsException('__AutoLoading of class '. $class .' fail', MagtoolsException::AUTOLOAD_EXCEPTION);
     }
 
 

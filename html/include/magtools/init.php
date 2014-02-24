@@ -1,91 +1,29 @@
 <?php
-define("INCLUDE_PATH", dirname(dirname(__FILE__)));
-
-define("MAIN_PATH", dirname(INCLUDE_PATH));
-
-define('SKINS_PATH', 'skin/');
+require_once dirname(__FILE__).'/constants.php';
 
 
 require_once MAIN_PATH.'/include/magtools/core/Loader.php';
-require_once MAIN_PATH.'/include/magtools/core/autoload.php';
+require_once dirname(__FILE__).'/autoload.php';
+require INCLUDE_PATH.'/store/init.php';
 
-$autoloadClasses = array(
-    //Controllers
-    'IAction' => '/controller/Action.php',
-    'Action' => '/controller/Action.php',
-    'osExecInsertAction' => '/controller/Action.php',
-    'osExecUpdateAction' => '/controller/Action.php',
-    'osExecDeleteAction' => '/controller/Action.php',
-    'ClearFiltersAction' => '/controller/Action.php',
-    'ActionDispatcher' => '/controller/ActionDispatcher.php',
-    'Controller' => '/controller/Controller.php',
-    'UIWebTable' => '/controller/UIWebTable.php',
-    //Model
-    'ConnectionInstance' => '/model/ConnectionInstance.php',
-    'DBConnection' => '/model/DBConnection.php',
-    'DBQueryUtil' => '/model/DBQueryUtil.php',
-    'IDomainObject' => '/model/DomainObject.php',
-    'DefaultDomainObject' => '/model/DomainObject.php',
-    'DBRecord' => '/model/Record.php',
-    'DBRecordset' => '/model/Record.php',
-    'Settings' => '/core/Settings.php',
-    //View
-    'UIWidget' => '/view/UIWidget.php',
-    'UIWidgetTable' =>'/view/UIWidget.php',
-    'TemplateParser' => '/view/TemplateParser.php',
-    'TemplateParserCondition' => '/view/TemplateParser.php',
-    'TemplateParserIteration' => '/view/TemplateParser.php',
-    'TemplateParserTranslate' => '/view/TemplateParser.php',
-    'PageAbstract' => '/view/page.php',
-    'Page' => '/view/page.php',
-    'SitePage' => '/view/page.php',
-    'PageAdministration' => '/view/page.php',
-    'PageTypes' => '/view/page.php',
-    'Pager' => '/view/Pager.php',
-    'Widget' => '/view/Widgets.php',
-    'TableCommand' => '/view/TableCommand.php',
-    'WidgetFactory' => '/view/Widgets.php',
-    'UILayout' => '/view/Layout.php',
-    'LayoutFactory' => '/view/Layout.php',
-    'UIBlock' => '/view/Module.php',
-    'Form' => '/view/form.php',
-    'jsUserAuth' => '/js/model/UserAuth.php',
-    'jsSiteUserAuth' => '/js/model/SiteAuth.php',
-    'jsSession' => '/js/model/Session.php',
-    'BreadCrumb' => '/view/BreadCrumb.php',
-    //Utils
-    'DataMapUtil' => '/util/DataMapUtil.php',
-    'StringUtil' => '/util/StringUtil.php',
-    'UploadUtil' => '/util/UploadUtil.php',
-    'HierarchyUtil' => '/util/HierarchyUtil.php',
-    'IniUtil' => '/util/IniUtil.php',
-    'LogUtil' => '/util/LogUtil.php',
-    'UIUtil' => '/util/UIUtil.php',
-    'ImageUtil' => '/util/ImageUtil.php',
-    'MessageUtil' => '/util/MessageUtil.php',
-    //Vaidators
-    'ValidatorFactory' => '/validators/ValidatorFactory.php',
-    'NotEmptyValidator' => '/validators/Validator.php',
-    'SelectedValidator' => '/validators/Validator.php',
-    'RegexValidator' => '/validators/Validator.php',
-    'Validator' => '/validators/Validator.php',
-    'EmailValidator' => '/validators/Validator.php',
-    'PhoneValidator' => '/validators/Validator.php',
-    //Exceptions
-    'ValidationException' => '/core/Exceptions.php',
-    'MagtoolsException' => '/core/Exceptions.php',
-    //Filters
-    'Filter' => '/filters/Filter.php',
-    'DateFilter' => '/filters/Filter.php',
-    'FilterFactory' => '/filters/Filter.php',
-    'FiltersParser' => '/filters/Filter.php',
+$autoloadPackages = array(
+	"blocks",
+	"controller",
+	"core",
+	"exceptions",
+	"filters",
+	"form",
+	"grid",
+	"js",
+	"model",
+	"util",
+	"validators",
+	"view",
 );
 
-foreach($autoloadClasses as $className=>$classDestination){
-    Loader::singleton()->registerClass($className, $classDestination);
+foreach($autoloadPackages as $package){
+    Loader::singleton()->registerClassPackage($package, "magtools/{$package}");
 }
-
-require INCLUDE_PATH.'/store/init.php';
 
 session_start();
 jsSession::init();
@@ -114,8 +52,6 @@ if(!isset($_REQUEST['action'])){
 define('ADMIN_THEME_DESTINATION', '../'.SKINS_PATH.Settings::getSetting(Settings::SETTINGS_ADMIN_THEME));
 define('SITE_THEME_DESTINATION', SKINS_PATH.Settings::getSetting(Settings::SETTINGS_SITE_THEME));
 
-
-require_once dirname(__FILE__).'/core/autoload.php';
 
 $translations = getTranslations();
 
