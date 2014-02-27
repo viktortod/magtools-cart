@@ -1,49 +1,28 @@
 <?php
-require_once dirname(__FILE__).'/constants.php';
+require_once dirname(__FILE__). '/constants.php';
+require_once dirname(__FILE__). '/autoload.php';
 
-
-require_once MAIN_PATH.'/include/magtools/core/Loader.php';
-require_once dirname(__FILE__).'/autoload.php';
-require INCLUDE_PATH.'/store/init.php';
-
-$autoloadPackages = array(
-	"blocks",
-	"controller",
-	"core",
-	"exceptions",
-	"filters",
-	"form",
-	"grid",
-	"js",
-	"model",
-	"util",
-	"validators",
-	"view",
-);
-
-foreach($autoloadPackages as $package){
-    Loader::singleton()->registerClassPackage($package, "magtools/{$package}");
-}
-
-session_start();
-jsSession::init();
-header("Content-type: text/html; charset=utf-8");
-
-$database = require_once dirname(__FILE__) . '/../../ini/database.php';
-
-if(count($_POST) > 0)
-{
-    jsSession::setParam('send', $_POST);
-}
-else{
-    jsSession::removeParam('send');
-}
-
-define("SEARCH_RECURSIVE", true);
+require_once INCLUDE_PATH. '/magtools/core/Loader.php';
+require_once INCLUDE_PATH. '/magtools/Application.php';
 
 require MAIN_PATH.'\plugins\ckeditor\ckeditor.php';
 
-ConnectionInstance::setDBImplementation($database);
+register_shutdown_function("execution_time_show",microtime(true));
+
+$app = new Application();
+
+$app->registerPackages();
+$app->init(require MAIN_PATH . "/ini/magtools.php");
+$app->initDb(require MAIN_PATH . "/ini/database.php");
+
+
+session_start();
+jsSession::init();
+
+header("Content-type: text/html; charset=utf-8");
+
+define("SEARCH_RECURSIVE", true);
+
 
 if(!isset($_REQUEST['action'])){
     $_REQUEST['action'] = '';
@@ -118,4 +97,10 @@ function getTranslations(){
     }
 
     return $allTexts;
+}
+
+function execution_time_show($startTime){
+	$seconds = round(microtime(true) - $startTime, 3);
+	
+	echo "<div style='text-align: center'><i>Executed for:</i> <b>{$seconds}</b></div>";
 }

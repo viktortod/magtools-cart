@@ -152,7 +152,8 @@ class TemplateParser {
                 }
                 else{
                     $iterationExpression = $regExpression;
-                    $content = preg_replace($iterationExpression, '<tr><td>No records<td></tr>', $content);
+//                    $content = preg_replace($iterationExpression, '<tr><td>No records<td></tr>', $content);
+                    $content = preg_replace($iterationExpression, '', $content);
                 }
             }
 

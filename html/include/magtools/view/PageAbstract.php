@@ -9,7 +9,7 @@ abstract class PageAbstract{
 
     protected $_domainObject;
 
-    protected $_pager;
+//    protected $_pager;
 
     private $_widgets;
 
@@ -205,11 +205,12 @@ abstract class PageAbstract{
         
         $this->initTableRows($rows);
 
-        $this->_pager = new Pager($rows);
+        $pager = new Pager($rows);
 
-        $table->assignData($this->_pager->setPageElements());
+        $table->assignData($pager->setPageElements());
         $table->init($this->_domainObject->getDataFields());
 
+        $this->_controller->setTemplateVariable("PAGER", $pager->getPagesVariable());
         return $table;
     }
 
@@ -251,63 +252,19 @@ abstract class PageAbstract{
     	$this->initBreadCrumb();
         $this->showHeader();
         try{
-        $this->_controller->processValidators($this->getValidators());
-        $this->_controller->dispatch();
-
-        $pageTemplate = $this->getPageTemplate();
-        
-        switch($this->templateId){
-            case PageTypes::PAGE_TYPE_CUSTOM:{
-                $this->_controller->showTemplate($pageTemplate);
-                break;
-            }
-            case PageTypes::PAGE_TYPE_CHANGE:{
-                if($paramElementId > 0){
-                    $this->_controller->setTemplateVariable('PAGE_ELEMENT', $paramElementId);
-                    $this->_controller->setTemplateVariable('MAIN_FORM_ACTION', '?page=edit&action=doEdit');
-                    $this->createDomainObject();
-                    $element = $this->getDomainObject()->getElement($paramElementId);
-                    $this->initWebForm();
-                    $this->parseWebForm($element);
-                }
-                
-                $this->_controller->showTemplate($pageTemplate);
-                break;
-            }
-            case PageTypes::PAGE_TYPE_LIST:{
-                $this->createDomainObject();
-                $table = $this->initTable();
-
-                $this->_controller->setTemplateVariable('PAGER', $this->_pager->getPagesVariable());
-                $tableContents = $table->parse();
-                $this->_controller->setTemplateVariable('FMT_TABLE_CONTENT', $tableContents);
-                $this->_controller->showTemplate($pageTemplate);
-                break;
-            }
-            case PageTypes::PAGE_TYPE_VIEW:{
-                $this->createDomainObject();
-                $this->initWebForm();
-                $this->parseWebForm();
-                $this->_controller->setTemplateVariable('MAIN_FORM_ACTION', '?page=create&action=doCreate');
-
-                $element = $this->getDomainObject()->getElement($paramElementId);
-                
-                if( $element !== false){
-                    $this->_controller->setTemplateArray($element);
-                }
-
-//                echo $this->getPageTemplate();
-
-                $this->_controller->showTemplate($pageTemplate);
-                break;
-            }
-            default:{
-                return '';
-            }
-        }
-
-        jsSession::removeParam('validate');
-
+	        $this->_controller->processValidators($this->getValidators());
+	        $this->_controller->dispatch();
+	
+	        $pageTemplate = $this->getPageTemplate();
+	        $this->initWebForm();
+	        $this->createDomainObject();
+	        
+	        $factory = new ViewModelFactory();
+	        
+	        $viewModel = $factory->getInstance($this->templateId);
+	        $viewModel->showPage($this, $paramElementId);
+	
+	        jsSession::removeParam('validate');
         } catch(Exception $e){
             $msg = $e->getMessage();
             Controller::redirect('error.php?msg='.urlencode($msg));

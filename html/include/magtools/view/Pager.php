@@ -2,7 +2,7 @@
 
 //Stranicirane. Podava mu se array i toj go reje
 class Pager {
-    const DEFAULT_ELEMENTS_PER_PAGE = 20;
+    const DEFAULT_ELEMENTS_PER_PAGE = 50;
     const DEFAULT_PAGE_PARAM = 'pagging';
 
     private $per_page;
@@ -56,7 +56,7 @@ class Pager {
              $request = str_replace("&" . $this->page_var, "", $request);
             $request = str_replace("&&","&", $request);
         }
-
+        
 
         for($i=0;$i<=$pages;$i++){
             if($i!=$this->page_index){

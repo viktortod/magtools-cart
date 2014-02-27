@@ -96,7 +96,7 @@ class SaveOrderAction extends Action{
 
         $record = array(
             'OrderCustomerID' => jsSiteUserAuth::getLoggedUserProperty('CustomerID'),
-            'OrderShippingAddressID' => getParam('CustomerDefault'),
+            'OrderShippingAddressID' => getParamDefault('CustomerDefault',1),
             'OrderPaymentModuleID' => getParam('PaymentModuleID'),
             'OrderShippingModuleID' => getParam('ShippingModuleID'),
             'OrderAdditionalInfo' => getParam('OrderAdditionalInfo'),

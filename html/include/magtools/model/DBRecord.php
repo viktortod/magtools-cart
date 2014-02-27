@@ -87,7 +87,6 @@ class DBRecord {
 
     public function insert(){
         $query = DBQueryUtil::constructInsertQuery($this->_tableName, $this->getRecord());
-        
         if($this->_dbConnection->query($query)){
             return ($this->getNextRecordId() - 1);
         }
